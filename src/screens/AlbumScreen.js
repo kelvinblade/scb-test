@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchPhotosData } from '../actions';
 import { ItemList, Spinner } from '../common';
-import { PhotoItem } from '../components';
+import { PhotoItem, PhotoModal } from '../components';
 import Colors from '../constants/Colors';
 
 class AlbumScreen extends Component {
+  state = {
+    modalVisible: false,
+    photoUrl: '',
+  };
+
   componentDidMount() {
     const id = this.props.navigation.getParam('id');
     this.props.fetchPhotosData(id);
   }
 
-  selectPhoto = (id) => {
-    // Open Modal to Show Enlarged Photo
+  selectPhoto = (photo) => {
+    this.setState({ modalVisible: true, photoUrl: photo.url });
   };
+
+  closePhotoModal = () => this.setState({ modalVisible: false });
 
   render() {
     if (this.props.isFetching) {
@@ -24,14 +31,21 @@ class AlbumScreen extends Component {
     }
 
     return (
-      <ScrollView style={styles.container}>
-        <ItemList
-          items={this.props.photos}
-          onPress={this.selectPhoto}
-          ItemComponent={PhotoItem}
-          numColumns={3}
+      <View style={styles.container}>
+        <ScrollView style={styles.container}>
+          <ItemList
+            items={this.props.photos}
+            onPress={this.selectPhoto}
+            ItemComponent={PhotoItem}
+            numColumns={3}
+          />
+        </ScrollView>
+        <PhotoModal
+          modalVisible={this.state.modalVisible}
+          onClose={this.closePhotoModal}
+          photoUrl={this.state.photoUrl}
         />
-      </ScrollView>
+      </View>
     );
   }
 }

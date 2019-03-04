@@ -7,7 +7,7 @@ export default class PhotoItem extends PureComponent {
     const { item, onPress } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => onPress(item.id)} style={styles.container}>
+      <TouchableOpacity onPress={() => onPress(item)} style={styles.container}>
         <Image source={{ uri: item.thumbnailUrl }} style={styles.avatar} />
       </TouchableOpacity>
     );
