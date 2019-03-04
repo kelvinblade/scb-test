@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchUsersData, setUserData } from '../actions';
-import { ItemList, Spinner } from '../common';
+import { ItemList, ItemListButton, Spinner } from '../common';
 import { UserItem } from '../components';
 import Colors from '../constants/Colors';
 
@@ -24,9 +24,12 @@ class UsersScreen extends Component {
     }
 
     return (
-      <ScrollView style={styles.container}>
-        <ItemList items={this.props.users} onPress={this.selectUser} ItemComponent={UserItem} />
-      </ScrollView>
+      <View style={styles.container}>
+        <ScrollView style={styles.container}>
+          <ItemList items={this.props.users} onPress={this.selectUser} ItemComponent={UserItem} />
+        </ScrollView>
+        <ItemListButton icon="md-pin" onPress={() => this.props.navigation.navigate('UsersMap')} />
+      </View>
     );
   }
 }

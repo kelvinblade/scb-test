@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, Image,
+  StyleSheet, Text, TouchableOpacity, Image, Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class UserItem extends PureComponent {
   render() {
-    const { item, onPress } = this.props;
+    const { item, onPress, block } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => onPress(item)} style={styles.container}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => onPress(item)}
+        style={[styles.container, block && styles.block]}
+      >
         <Image
           source={{
             uri: `https://ui-avatars.com/api/?name=${item.name}&background=59CFE2&color=fff`,
@@ -23,9 +27,14 @@ export default class UserItem extends PureComponent {
   }
 }
 
+UserItem.defaultProps = {
+  block: false,
+};
+
 UserItem.propTypes = {
   item: PropTypes.object.isRequired,
   onPress: PropTypes.func.isRequired,
+  block: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
@@ -35,6 +44,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginBottom: 10,
+  },
+  block: {
+    width: Dimensions.get('window').width - 20,
+    marginRight: 10,
   },
   avatar: {
     height: 50,

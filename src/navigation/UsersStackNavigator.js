@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 import { TabBarIcon } from '../components';
 import UserScreen from '../screens/UserScreen';
 import UsersScreen from '../screens/UsersScreen';
+import UsersMapScreen from '../screens/MapScreen';
 import UserAlbumsScreen from '../screens/AlbumsScreen';
 import UserAlbumScreen from '../screens/AlbumScreen';
 import UserPostsScreen from '../screens/PostsScreen';
@@ -21,6 +22,15 @@ const UsersStackNavigator = createStackNavigator({
       headerTitleStyle: {
         color: Colors.headerText,
       },
+    }),
+  },
+  UsersMap: {
+    screen: UsersMapScreen,
+    navigationOptions: () => ({
+      headerBackTitleStyle: {
+        color: Colors.tintColor,
+      },
+      headerTintColor: Colors.tintColor,
     }),
   },
   User: {
